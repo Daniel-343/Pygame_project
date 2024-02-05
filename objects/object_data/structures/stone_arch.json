@@ -1,0 +1,27 @@
+{
+  "structureData": {
+    "name": "stone arch",
+    "sheet": "C:\\Users\\danth\\PycharmProjects\\Cookie_Factory\\resources\\stone_structure_tileset.png",
+    "width": 64,
+    "height": 64,
+    "x_frame": 0,
+    "y_frame": 0,
+    "x_dest": 416,
+    "y_dest": 128,
+    "collision": true,
+    "collision_areas": [
+      {
+        "collision_area_x": 0,
+        "collision_area_y": 32,
+        "collision_area_width": 18,
+        "collision_area_height": 32
+      },
+      {
+        "collision_area_x": 44,
+        "collision_area_y": 34,
+        "collision_area_width": 18,
+        "collision_area_height": 32
+      }
+    ]
+  }
+}

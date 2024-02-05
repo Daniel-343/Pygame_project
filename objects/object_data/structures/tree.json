@@ -1,0 +1,21 @@
+{
+  "structureData": {
+    "name": "tree",
+    "sheet": "C:\\Users\\danth\\PycharmProjects\\Cookie_Factory\\resources\\plant_tileset.png",
+    "width": 116,
+    "height": 142,
+    "x_frame": 0,
+    "y_frame": 0,
+    "x_dest": 20,
+    "y_dest": 10,
+    "collision": true,
+    "collision_areas": [
+      {
+        "collision_area_x": 52,
+        "collision_area_y": 118,
+        "collision_area_width": 12,
+        "collision_area_height": 24
+      }
+    ]
+  }
+}

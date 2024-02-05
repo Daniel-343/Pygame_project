@@ -1,0 +1,14 @@
+{
+  "spriteData": {
+    "sheet": "C:\\Users\\danth\\PycharmProjects\\Cookie_Factory\\resources\\DinoSprites - doux.png",
+    "speed": 2,
+    "collision_areas": [
+      {
+        "collision_area_x": 12,
+        "collision_area_y": 24,
+        "collision_area_width": 24,
+        "collision_area_height": 12
+      }
+    ]
+  }
+}
