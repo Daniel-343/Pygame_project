@@ -12,7 +12,7 @@ class Main:
 
     def run(self):
         scene1 = Scene(self.SCREEN_WIDTH, self.SCREEN_HEIGHT, self.screen, 'main_map')
-        scene1.show_scene()
+        scene1.show_scene("main_scene")
         pygame.quit()
 
 

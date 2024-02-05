@@ -56,11 +56,22 @@ def create_image_frame(tile_map_image, collidables_below, collidables_above, pla
     return image_frame
 
 
-def get_collidables(tile_map):
+def get_collidable_tiles(tile_map):
     collidables = []
     for collidable in tile_map:
         if collidable.collision:
             collidables.append(collidable)
+    return collidables
+
+
+def get_collidables(scene_data):
+    collidables = []
+    for collidable in scene_data["objects"]["structures"]:
+        collidables.append(
+            Structure(collidable["name"], collidable["initial_position_x"], collidable["initial_position_y"]))
+    for collidable in scene_data["objects"]["sprites"]:
+        collidables.append(
+            Sprite(collidable["name"], collidable["initial_position_x"], collidable["initial_position_y"]))
     return collidables
 
 
@@ -75,7 +86,7 @@ class Scene(object):
         self.map_provider = MapProvider(32, self.map_layout)
         self.tile_map = self.map_provider.generate_map()
 
-    def show_scene(self):
+    def show_scene(self, scene_name):
         clock = pygame.time.Clock()
         tick_rate = 120
         screen_half_width = self.screen_width / 2
@@ -84,14 +95,16 @@ class Scene(object):
         map_width = len(self.map_layout[0]) * 32
         map_height = len(self.map_layout) * 32
         zoom_scale = 1
-        tree = Structure("tree", 370, 400)
+
         player = Sprite("player", self.screen_width / 2 - 24,
                         self.screen_height / 2 - 24)
-        npc = Sprite("player", 576, 384)
-        stone_arch = Structure("stone_arch", 256, 352)
 
-        collidables = [npc, tree, stone_arch]
-        collidables.extend(get_collidables(self.tile_map))
+        scene_route = RouteProvider.get_route_by_name(scene_name, "scene")
+        with open(scene_route, 'r') as file:
+            scene_data = json.load(file)["sceneData"]
+
+        collidables = get_collidables(scene_data)
+        collidables.extend(get_collidable_tiles(self.tile_map))
         run = True
 
         tile_map_surface = pygame.Surface((map_width, map_height))
@@ -122,7 +135,7 @@ class Scene(object):
             self.screen.blit(scaled_surface, scaled_rect)
 
             player.animate(100)
-            npc.animate(100)
+            # npc.animate(100)
 
             check_controls(player, zoom_scale, collidables, player_speed)
 
