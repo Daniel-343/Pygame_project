@@ -4,8 +4,8 @@ from scenes.Scene import Scene
 
 class Main:
     def __init__(self):
-        self.SCREEN_WIDTH = 1280
-        self.SCREEN_HEIGHT = 720
+        self.SCREEN_WIDTH = 1980
+        self.SCREEN_HEIGHT = 1080
         self.screen = pygame.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
 
     def run(self):

@@ -19,8 +19,8 @@ class Scene(object):
     def show_scene(self):
         clock = pygame.time.Clock()
         tick_rate = 120
-        screen_half_width = 640
-        screen_half_height = 360
+        screen_half_width = self.screen_width / 2
+        screen_half_height = self.screen_height / 2
         PLAYER_SPEED = 2
         MAP_WIDTH = len(self.map_layout[0]) * 32
         MAP_HEIGHT = len(self.map_layout) * 32
