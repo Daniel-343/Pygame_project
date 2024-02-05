@@ -1,0 +1,17 @@
+{
+  "routeData": {
+    "structure": {
+      "stone_arch": "C:\\Users\\danth\\PycharmProjects\\Cookie_Factory\\game_data\\object_data\\structures\\stone_arch.json",
+      "tree": "C:\\Users\\danth\\PycharmProjects\\Cookie_Factory\\game_data\\object_data\\structures\\tree.json"
+    },
+    "scene": {
+      "main_scene": "C:\\Users\\danth\\PycharmProjects\\Cookie_Factory\\game_data\\scene_data\\scene1.json"
+    },
+    "map": {
+      "main_map": "C:\\Users\\danth\\PycharmProjects\\Cookie_Factory\\game_data\\map_data\\map1.json"
+    },
+    "sprite": {
+      "player": "C:\\Users\\danth\\PycharmProjects\\Cookie_Factory\\game_data\\object_data\\sprites\\player.json"
+    }
+  }
+}

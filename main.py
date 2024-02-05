@@ -1,4 +1,6 @@
 import pygame
+
+from game_data import RouteProvider
 from scenes.Scene import Scene
 
 
