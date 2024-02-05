@@ -1,13 +1,27 @@
 {
   "sceneData": {
     "name": "main_scene",
-    "map_layout": "C:\\Users\\danth\\PycharmProjects\\Cookie_Factory\\game_data\\map_data\\map1.json",
-    "collidables": [
-      {
-        "name": "tree",
-        "initial_position_x": 24,
-        "initial_position_y": 24
-      }
-    ]
+    "map_name": "main_map",
+    "objects": {
+      "structures": [
+        {
+          "name": "tree",
+          "initial_position_x": 370,
+          "initial_position_y": 400
+        },
+        {
+          "name": "stone_arch",
+          "initial_position_x": 256,
+          "initial_position_y": 352
+        }
+      ],
+      "sprites": [
+        {
+          "name": "player",
+          "initial_position_x": 576,
+          "initial_position_y": 384
+        }
+      ]
+    }
   }
 }

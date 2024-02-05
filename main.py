@@ -11,7 +11,7 @@ class Main:
         self.screen = pygame.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
 
     def run(self):
-        scene1 = Scene(self.SCREEN_WIDTH, self.SCREEN_HEIGHT, self.screen, './game_data/map_data/map1.json')
+        scene1 = Scene(self.SCREEN_WIDTH, self.SCREEN_HEIGHT, self.screen, 'main_map')
         scene1.show_scene()
         pygame.quit()
 

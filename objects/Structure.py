@@ -2,10 +2,12 @@ import json
 
 import pygame
 
+from game_data import RouteProvider
+
 
 class Structure:
-    def __init__(self, initial_position_x, initial_position_y, data_source):
-        self.data_source = data_source
+    def __init__(self, name, initial_position_x, initial_position_y):
+        self.data_source = RouteProvider.get_route_by_name(name, "structure")
         self.structure_data = self.get_structure_data()
         self.sheet = self.structure_data["sheet"]
         self.image = self.get_image_by_pixel(self.structure_data["width"], self.structure_data["height"],

@@ -2,11 +2,13 @@ import json
 
 import pygame
 
+from game_data import RouteProvider
+
 
 class Sprite(pygame.sprite.Sprite):
-    def __init__(self, initial_position_x, initial_position_y, data_source):
+    def __init__(self, name, initial_position_x, initial_position_y):
         super().__init__()
-        self.data_source = data_source
+        self.data_source = RouteProvider.get_route_by_name(name, "sprite")
         self.sprite_data = self.get_sprite_data()
         self.sheet = self.sprite_data['sheet']
         self.direction = "right"

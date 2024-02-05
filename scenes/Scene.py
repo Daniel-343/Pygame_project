@@ -2,6 +2,7 @@ import json
 
 import pygame
 
+from game_data import RouteProvider
 from map.MapProvider import MapProvider
 from objects.Structure import Structure
 from sprites.Sprite import Sprite
@@ -64,13 +65,13 @@ def get_collidables(tile_map):
 
 
 class Scene(object):
-    def __init__(self, screen_width, screen_height, screen, map_layout_source):
+    def __init__(self, screen_width, screen_height, screen, map_name):
         self.screen_width = screen_width
         self.screen_height = screen_height
         self.screen = screen
         self.collidables = []
 
-        self.map_layout = get_map_layout(map_layout_source)
+        self.map_layout = get_map_layout(RouteProvider.get_route_by_name(map_name, "map"))
         self.map_provider = MapProvider(32, self.map_layout)
         self.tile_map = self.map_provider.generate_map()
 
@@ -83,11 +84,11 @@ class Scene(object):
         map_width = len(self.map_layout[0]) * 32
         map_height = len(self.map_layout) * 32
         zoom_scale = 1
-        tree = Structure(370, 400, "./game_data/object_data/structures/tree.json")
-        player = Sprite(self.screen_width / 2 - 24,
-                        self.screen_height / 2 - 24, "./game_data/object_data/sprites/player.json")
-        npc = Sprite(576, 384, "./game_data/object_data/sprites/player.json")
-        stone_arch = Structure(256, 352, "./game_data/object_data/structures/stone_arch.json")
+        tree = Structure("tree", 370, 400)
+        player = Sprite("player", self.screen_width / 2 - 24,
+                        self.screen_height / 2 - 24)
+        npc = Sprite("player", 576, 384)
+        stone_arch = Structure("stone_arch", 256, 352)
 
         collidables = [npc, tree, stone_arch]
         collidables.extend(get_collidables(self.tile_map))
