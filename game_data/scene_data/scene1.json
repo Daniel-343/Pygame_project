@@ -1,0 +1,13 @@
+{
+  "sceneData": {
+    "name": "main_scene",
+    "map_layout": "C:\\Users\\danth\\PycharmProjects\\Cookie_Factory\\game_data\\map_data\\map1.json",
+    "collidables": [
+      {
+        "name": "tree",
+        "initial_position_x": 24,
+        "initial_position_y": 24
+      }
+    ]
+  }
+}

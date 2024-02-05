@@ -22,8 +22,8 @@ def check_controls(player, zoom_scale, objects, player_speed):
         player.state = "idle"
 
 
-def get_map_layout():
-    with open('./resources/map1.json', 'r') as file:
+def get_map_layout(map_layout_source):
+    with open(map_layout_source, 'r') as file:
         return json.load(file)["map_layout"]
 
 
@@ -55,13 +55,22 @@ def create_image_frame(tile_map_image, collidables_below, collidables_above, pla
     return image_frame
 
 
+def get_collidables(tile_map):
+    collidables = []
+    for collidable in tile_map:
+        if collidable.collision:
+            collidables.append(collidable)
+    return collidables
+
+
 class Scene(object):
-    def __init__(self, screen_width, screen_height, screen):
+    def __init__(self, screen_width, screen_height, screen, map_layout_source):
         self.screen_width = screen_width
         self.screen_height = screen_height
         self.screen = screen
+        self.collidables = []
 
-        self.map_layout = get_map_layout()
+        self.map_layout = get_map_layout(map_layout_source)
         self.map_provider = MapProvider(32, self.map_layout)
         self.tile_map = self.map_provider.generate_map()
 
@@ -74,14 +83,14 @@ class Scene(object):
         map_width = len(self.map_layout[0]) * 32
         map_height = len(self.map_layout) * 32
         zoom_scale = 1
-        tree = Structure(370, 400, "./objects/object_data/structures/tree.json")
-        player = Sprite("./objects/object_data/sprites/player.json", self.screen_width / 2 - 24,
-                        self.screen_height / 2 - 24)
-        npc = Sprite("./objects/object_data/sprites/player.json", 576, 384)
-        stone_arch = Structure(256, 352, "./objects/object_data/structures/stone_arch.json")
+        tree = Structure(370, 400, "./game_data/object_data/structures/tree.json")
+        player = Sprite(self.screen_width / 2 - 24,
+                        self.screen_height / 2 - 24, "./game_data/object_data/sprites/player.json")
+        npc = Sprite(576, 384, "./game_data/object_data/sprites/player.json")
+        stone_arch = Structure(256, 352, "./game_data/object_data/structures/stone_arch.json")
 
         collidables = [npc, tree, stone_arch]
-        collidables.extend(self.get_collidables())
+        collidables.extend(get_collidables(self.tile_map))
         run = True
 
         tile_map_surface = pygame.Surface((map_width, map_height))
@@ -101,8 +110,9 @@ class Scene(object):
             image_frame_surface = create_image_frame(tile_map_surface, collidables_below, collidables_above, player,
                                                      map_width, map_height)
 
-            camera_offset = pygame.math.Vector2(-player.pos.x + screen_half_width - 24,
-                                                -player.pos.y + screen_half_height - 24) + internal_offset
+            camera_offset = (pygame.math.Vector2(-player.pos.x + screen_half_width - player.pos.width / 2,
+                                                 -player.pos.y + screen_half_height - player.pos.height / 2)
+                             + internal_offset)
 
             scaled_surface = pygame.transform.scale(internal_surface, internal_surface_size_vector * zoom_scale)
             scaled_rect = scaled_surface.get_rect(center=(screen_half_width, screen_half_height))
@@ -124,10 +134,3 @@ class Scene(object):
             pygame.display.update()
 
             clock.tick(tick_rate)
-
-    def get_collidables(self):
-        collidables = []
-        for collidable in self.tile_map:
-            if collidable.collision:
-                collidables.append(collidable)
-        return collidables

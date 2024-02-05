@@ -4,7 +4,7 @@ import pygame
 
 
 class Sprite(pygame.sprite.Sprite):
-    def __init__(self, data_source, initial_position_x, initial_position_y):
+    def __init__(self, initial_position_x, initial_position_y, data_source):
         super().__init__()
         self.data_source = data_source
         self.sprite_data = self.get_sprite_data()
