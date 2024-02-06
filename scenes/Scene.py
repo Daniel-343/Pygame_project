@@ -1,4 +1,5 @@
 import json
+import sys
 
 import pygame
 
@@ -109,8 +110,7 @@ class Scene(object):
         map_height = len(self.map_layout) * 32
         zoom_scale = 1
 
-        player = Sprite("player", self.screen_width / 2 - 24,
-                        self.screen_height / 2 - 24)
+        player = Sprite("player", 40, 40)
 
         teleport_blocks = self.create_teleport_blocks()
 
@@ -154,6 +154,8 @@ class Scene(object):
             pygame.display.update()
 
             clock.tick(tick_rate)
+        pygame.quit()
+        sys.exit()
 
     def show_screen_surface(self, image_frame_surface, player, internal_surface,
                             internal_offset, internal_surface_size_vector, zoom_scale):
@@ -170,7 +172,6 @@ class Scene(object):
 
     def create_teleport_blocks(self):
         teleport_blocks = []
-        print(self.scene_data["objects"]["teleport_blocks"])
         for teleport in self.scene_data["objects"]["teleport_blocks"]:
             teleport_blocks.append(
                 TeleportBlock(teleport["destination"], teleport["initial_position_x"], teleport["initial_position_y"],

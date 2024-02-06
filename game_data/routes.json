@@ -10,7 +10,8 @@
       "workshop_scene": "C:\\Users\\danth\\PycharmProjects\\Cookie_Factory\\game_data\\scene_data\\workshop_scene.json"
     },
     "map": {
-      "main_map": "C:\\Users\\danth\\PycharmProjects\\Cookie_Factory\\game_data\\map_data\\main_map.json"
+      "main_map": "C:\\Users\\danth\\PycharmProjects\\Cookie_Factory\\game_data\\map_data\\main_map.json",
+      "workshop_map": "C:\\Users\\danth\\PycharmProjects\\Cookie_Factory\\game_data\\map_data\\workshop_map.json"
     },
     "sprite": {
       "player": "C:\\Users\\danth\\PycharmProjects\\Cookie_Factory\\game_data\\object_data\\sprites\\player.json"
