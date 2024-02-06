@@ -2,10 +2,12 @@
   "routeData": {
     "structure": {
       "stone_arch": "C:\\Users\\danth\\PycharmProjects\\Cookie_Factory\\game_data\\object_data\\structures\\stone_arch.json",
-      "tree": "C:\\Users\\danth\\PycharmProjects\\Cookie_Factory\\game_data\\object_data\\structures\\tree.json"
+      "tree": "C:\\Users\\danth\\PycharmProjects\\Cookie_Factory\\game_data\\object_data\\structures\\tree.json",
+      "house": "C:\\Users\\danth\\PycharmProjects\\Cookie_Factory\\game_data\\object_data\\structures\\house.json"
     },
     "scene": {
-      "main_scene": "C:\\Users\\danth\\PycharmProjects\\Cookie_Factory\\game_data\\scene_data\\main_scene.json"
+      "main_scene": "C:\\Users\\danth\\PycharmProjects\\Cookie_Factory\\game_data\\scene_data\\main_scene.json",
+      "workshop_scene": "C:\\Users\\danth\\PycharmProjects\\Cookie_Factory\\game_data\\scene_data\\workshop_scene.json"
     },
     "map": {
       "main_map": "C:\\Users\\danth\\PycharmProjects\\Cookie_Factory\\game_data\\map_data\\main_map.json"

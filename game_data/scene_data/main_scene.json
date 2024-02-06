@@ -6,13 +6,58 @@
       "structures": [
         {
           "name": "tree",
-          "initial_position_x": 370,
-          "initial_position_y": 400
+          "initial_position_x": 352,
+          "initial_position_y": 416
+        },
+        {
+          "name": "tree",
+          "initial_position_x": 800,
+          "initial_position_y": 200
+        },
+        {
+          "name": "tree",
+          "initial_position_x": 800,
+          "initial_position_y": 640
+        },
+        {
+          "name": "tree",
+          "initial_position_x": 448,
+          "initial_position_y": 190
+        },
+        {
+          "name": "tree",
+          "initial_position_x": 448,
+          "initial_position_y": 890
+        },
+        {
+          "name": "tree",
+          "initial_position_x": 1472,
+          "initial_position_y": 250
+        },
+        {
+          "name": "tree",
+          "initial_position_x": 1504,
+          "initial_position_y": 960
+        },
+        {
+          "name": "tree",
+          "initial_position_x": 1536,
+          "initial_position_y": 480
+        },
+        {
+          "name": "tree",
+          "initial_position_x": 1184,
+          "initial_position_y": 320
         },
         {
           "name": "stone_arch",
           "initial_position_x": 256,
           "initial_position_y": 352
+        },
+                {
+          "name": "house",
+          "initial_position_x": 1000,
+          "initial_position_y": 150
         }
       ],
       "sprites": [

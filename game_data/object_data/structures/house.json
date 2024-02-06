@@ -1,0 +1,21 @@
+{
+  "structureData": {
+    "name": "house",
+    "sheet": "C:\\Users\\danth\\PycharmProjects\\Cookie_Factory\\resources\\houses.png",
+    "width": 160,
+    "height": 256,
+    "x_frame": 0,
+    "y_frame": 0,
+    "x_dest": 230,
+    "y_dest": 0,
+    "collision": true,
+    "collision_areas": [
+      {
+        "collision_area_x": 2,
+        "collision_area_y": 100,
+        "collision_area_width": 156,
+        "collision_area_height": 80
+      }
+    ]
+  }
+}

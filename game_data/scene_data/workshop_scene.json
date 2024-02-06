@@ -1,0 +1,17 @@
+{
+  "sceneData": {
+    "name": "main_scene",
+    "map_name": "main_map",
+    "objects": {
+      "structures": [
+      ],
+      "sprites": [
+        {
+          "name": "player",
+          "initial_position_x": 576,
+          "initial_position_y": 384
+        }
+      ]
+    }
+  }
+}

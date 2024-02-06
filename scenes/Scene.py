@@ -5,6 +5,7 @@ import pygame
 from game_data import RouteProvider
 from map.MapProvider import MapProvider
 from objects.Structure import Structure
+from scenes.TeleportBlock import TeleportBlock
 from sprites.Sprite import Sprite
 
 
@@ -74,19 +75,26 @@ def get_collidables(scene_data):
             Sprite(collidable["name"], collidable["initial_position_x"], collidable["initial_position_y"]))
     return collidables
 
+def get_scene_data(scene_name):
+    scene_route = RouteProvider.get_route_by_name(scene_name, "scene")
+    with open(scene_route, 'r') as file:
+        return json.load(file)["sceneData"]
 
 class Scene(object):
-    def __init__(self, screen_width, screen_height, screen, map_name):
+    def __init__(self, scene_name, screen_width, screen_height, screen):
+        self.scene_name = scene_name
         self.screen_width = screen_width
         self.screen_height = screen_height
         self.screen = screen
         self.collidables = []
 
-        self.map_layout = get_map_layout(RouteProvider.get_route_by_name(map_name, "map"))
+        self.scene_data = get_scene_data(scene_name)
+
+        self.map_layout = get_map_layout(RouteProvider.get_route_by_name(self.scene_data["map_name"], "map"))
         self.map_provider = MapProvider(32, self.map_layout)
         self.tile_map = self.map_provider.generate_map()
 
-    def show_scene(self, scene_name):
+    def show_scene(self):
         clock = pygame.time.Clock()
         tick_rate = 120
         screen_half_width = self.screen_width / 2
@@ -98,18 +106,21 @@ class Scene(object):
 
         player = Sprite("player", self.screen_width / 2 - 24,
                         self.screen_height / 2 - 24)
+        #####temporary
+        next_scene_teleport = TeleportBlock("teleport", 1055, 330)
 
-        scene_route = RouteProvider.get_route_by_name(scene_name, "scene")
-        with open(scene_route, 'r') as file:
-            scene_data = json.load(file)["sceneData"]
 
-        collidables = get_collidables(scene_data)
+
+        collidables = get_collidables(self.scene_data)
         collidables.extend(get_collidable_tiles(self.tile_map))
         run = True
 
         tile_map_surface = pygame.Surface((map_width, map_height))
         for drawable in self.tile_map:
             tile_map_surface.blit(drawable.image, drawable.pos)
+
+            ###temporary
+            #tile_map_surface.blit(next_scene_teleport.teleport_surface, next_scene_teleport.pos)
 
         internal_surface_size = (2048, 1280)
         internal_surface = pygame.Surface(internal_surface_size, pygame.SRCALPHA)
@@ -135,9 +146,14 @@ class Scene(object):
             self.screen.blit(scaled_surface, scaled_rect)
 
             player.animate(100)
-            # npc.animate(100)
 
             check_controls(player, zoom_scale, collidables, player_speed)
+
+
+            ####temporary
+            next_scene = "workshop_scene"
+            if next_scene_teleport.check_if_collide(player):
+                return next_scene
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -148,3 +164,4 @@ class Scene(object):
             pygame.display.update()
 
             clock.tick(tick_rate)
+
