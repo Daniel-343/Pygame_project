@@ -54,7 +54,7 @@
           "initial_position_x": 256,
           "initial_position_y": 352
         },
-                {
+        {
           "name": "house",
           "initial_position_x": 1000,
           "initial_position_y": 150
@@ -65,6 +65,15 @@
           "name": "player",
           "initial_position_x": 576,
           "initial_position_y": 384
+        }
+      ],
+      "teleport_blocks": [
+        {
+          "destination": "workshop_scene",
+          "initial_position_x": 1055,
+          "initial_position_y": 330,
+          "width": 50,
+          "height": 30
         }
       ]
     }

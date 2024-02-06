@@ -1,6 +1,5 @@
 import pygame
 
-from game_data import RouteProvider
 from scenes.Scene import Scene
 
 
@@ -13,7 +12,7 @@ class Main:
     def run(self):
         main_scene = Scene("main_scene", self.SCREEN_WIDTH, self.SCREEN_HEIGHT, self.screen)
         next_scene = main_scene
-        while True:
+        while next_scene.run:
             next_scene = self.get_scene_by_name(next_scene.show_scene())
         pygame.quit()
 

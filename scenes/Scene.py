@@ -75,10 +75,12 @@ def get_collidables(scene_data):
             Sprite(collidable["name"], collidable["initial_position_x"], collidable["initial_position_y"]))
     return collidables
 
+
 def get_scene_data(scene_name):
     scene_route = RouteProvider.get_route_by_name(scene_name, "scene")
     with open(scene_route, 'r') as file:
         return json.load(file)["sceneData"]
+
 
 class Scene(object):
     def __init__(self, scene_name, screen_width, screen_height, screen):
@@ -87,6 +89,10 @@ class Scene(object):
         self.screen_height = screen_height
         self.screen = screen
         self.collidables = []
+        self.run = True
+
+        self.screen_half_width = self.screen_width / 2
+        self.screen_half_height = self.screen_height / 2
 
         self.scene_data = get_scene_data(scene_name)
 
@@ -97,8 +103,7 @@ class Scene(object):
     def show_scene(self):
         clock = pygame.time.Clock()
         tick_rate = 120
-        screen_half_width = self.screen_width / 2
-        screen_half_height = self.screen_height / 2
+
         player_speed = 2
         map_width = len(self.map_layout[0]) * 32
         map_height = len(self.map_layout) * 32
@@ -106,58 +111,43 @@ class Scene(object):
 
         player = Sprite("player", self.screen_width / 2 - 24,
                         self.screen_height / 2 - 24)
-        #####temporary
-        next_scene_teleport = TeleportBlock("teleport", 1055, 330)
 
-
+        teleport_blocks = self.create_teleport_blocks()
 
         collidables = get_collidables(self.scene_data)
         collidables.extend(get_collidable_tiles(self.tile_map))
-        run = True
 
         tile_map_surface = pygame.Surface((map_width, map_height))
         for drawable in self.tile_map:
             tile_map_surface.blit(drawable.image, drawable.pos)
 
-            ###temporary
-            #tile_map_surface.blit(next_scene_teleport.teleport_surface, next_scene_teleport.pos)
-
         internal_surface_size = (2048, 1280)
         internal_surface = pygame.Surface(internal_surface_size, pygame.SRCALPHA)
         internal_surface_size_vector = pygame.math.Vector2(internal_surface_size)
         internal_offset = pygame.math.Vector2(0, 0)
-        internal_offset.x = internal_surface_size[0] / 2 - screen_half_width
-        internal_offset.y = internal_surface_size[1] / 2 - screen_half_height
+        internal_offset.x = internal_surface_size[0] / 2 - self.screen_half_width
+        internal_offset.y = internal_surface_size[1] / 2 - self.screen_half_height
 
-        while run:
+        while self.run:
             collidables_above = get_collidables_above(collidables, player)
             collidables_below = get_collidables_below(collidables, player)
             image_frame_surface = create_image_frame(tile_map_surface, collidables_below, collidables_above, player,
                                                      map_width, map_height)
 
-            camera_offset = (pygame.math.Vector2(-player.pos.x + screen_half_width - player.pos.width / 2,
-                                                 -player.pos.y + screen_half_height - player.pos.height / 2)
-                             + internal_offset)
-
-            scaled_surface = pygame.transform.scale(internal_surface, internal_surface_size_vector * zoom_scale)
-            scaled_rect = scaled_surface.get_rect(center=(screen_half_width, screen_half_height))
-            internal_surface.fill('black')
-            internal_surface.blit(image_frame_surface, camera_offset)
-            self.screen.blit(scaled_surface, scaled_rect)
+            self.show_screen_surface(image_frame_surface, player, internal_surface,
+                                     internal_offset, internal_surface_size_vector, zoom_scale)
 
             player.animate(100)
 
             check_controls(player, zoom_scale, collidables, player_speed)
 
-
-            ####temporary
-            next_scene = "workshop_scene"
-            if next_scene_teleport.check_if_collide(player):
-                return next_scene
+            for teleport in teleport_blocks:
+                if teleport.check_if_collide(player):
+                    return teleport.destination
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    run = False
+                    self.run = False
                 if event.type == pygame.MOUSEWHEEL and 1 < zoom_scale + event.y * 0.03 < 1.7:
                     zoom_scale += event.y * 0.03
 
@@ -165,3 +155,24 @@ class Scene(object):
 
             clock.tick(tick_rate)
 
+    def show_screen_surface(self, image_frame_surface, player, internal_surface,
+                            internal_offset, internal_surface_size_vector, zoom_scale):
+
+        camera_offset = (pygame.math.Vector2(-player.pos.x + self.screen_half_width - player.pos.width / 2,
+                                             -player.pos.y + self.screen_half_height - player.pos.height / 2)
+                         + internal_offset)
+
+        scaled_surface = pygame.transform.scale(internal_surface, internal_surface_size_vector * zoom_scale)
+        scaled_rect = scaled_surface.get_rect(center=(self.screen_half_width, self.screen_half_height))
+        internal_surface.fill('black')
+        internal_surface.blit(image_frame_surface, camera_offset)
+        self.screen.blit(scaled_surface, scaled_rect)
+
+    def create_teleport_blocks(self):
+        teleport_blocks = []
+        print(self.scene_data["objects"]["teleport_blocks"])
+        for teleport in self.scene_data["objects"]["teleport_blocks"]:
+            teleport_blocks.append(
+                TeleportBlock(teleport["destination"], teleport["initial_position_x"], teleport["initial_position_y"],
+                              teleport["width"], teleport["height"]))
+        return teleport_blocks
