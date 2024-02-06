@@ -33,7 +33,7 @@ def get_map_layout(map_layout_source):
 def get_collidables_below(collidables, player):
     collidables_below = []
     for collidable in collidables:
-        if collidable.pos.y + collidable.collision_area_y >= player.pos.y + player.collision_area_y:
+        if collidable.pos.y + (collidable.collision_area_y - collidable.collision_area_height) >= player.pos.y + player.collision_area_y:
             collidables_below.append(collidable)
     return collidables_below
 
@@ -41,7 +41,7 @@ def get_collidables_below(collidables, player):
 def get_collidables_above(collidables, player):
     collidables_above = []
     for collidable in collidables:
-        if collidable.pos.y + collidable.collision_area_y <= player.pos.y + player.collision_area_y:
+        if collidable.pos.y + (collidable.collision_area_y - collidable.collision_area_height) < player.pos.y + player.collision_area_y:
             collidables_above.append(collidable)
     return collidables_above
 

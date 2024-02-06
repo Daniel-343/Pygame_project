@@ -14,6 +14,8 @@ class MapProvider(object):
         self.map_layout = map_layout
         self.grass_sheet = pygame.image.load("./resources/grass_tileset.png").convert_alpha()
         self.wall_sheet = pygame.image.load("./resources/wall_tileset.png").convert_alpha()
+        self.floor_sheet = pygame.image.load("./resources/floor_and_deoratives.png").convert_alpha()
+        self.black_tile = pygame.Surface((32, 32)).convert_alpha()
 
     def generate_map(self):
         tile_map = []
@@ -26,11 +28,17 @@ class MapProvider(object):
         collision = False
         match tile_id:
             case "s":
-                image = self.get_image_by_frame(random.randint(0, 1), random.randint(5, 6), self.grass_sheet, 32, 32, 1, "black", "right")
-            case "p":
-                image = pygame.image.load("./resources/dirt_32.png").convert_alpha()
+                image = self.get_image_by_frame(random.randint(0, 1), random.randint(5, 6), self.grass_sheet, 32, 32, 1,
+                                                "black", "right")
+            case "f":
+                image = self.get_image_by_frame(4, 1, self.floor_sheet, 32, 32, 1,
+                                                "black", "right")
             case "g":
-                image = self.get_image_by_frame(random.randint(0, 7), random.randint(0, 3), self.grass_sheet, 32, 32, 1, "black", "right")
+                image = self.get_image_by_frame(random.randint(0, 7), random.randint(0, 3), self.grass_sheet, 32, 32, 1,
+                                                "black", "right")
+            case "b":
+                image = self.black_tile
+                collision = True
             case _:
                 image = pygame.image.load("./resources/brick_wall_32.png").convert_alpha()
         return Tile(image, initial_position_x, initial_position_y, collision)

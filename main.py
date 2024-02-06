@@ -10,7 +10,7 @@ class Main:
         self.screen = pygame.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
 
     def run(self):
-        current_scene = Scene("main_scene", self.SCREEN_WIDTH, self.SCREEN_HEIGHT, self.screen)
+        current_scene = Scene("workshop_scene", self.SCREEN_WIDTH, self.SCREEN_HEIGHT, self.screen)
         while current_scene:
             current_scene = self.get_scene_by_name(current_scene.show_scene())
 
