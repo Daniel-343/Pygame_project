@@ -33,7 +33,7 @@ def get_map_layout(map_layout_source):
 def get_collidables_below(collidables, player):
     collidables_below = []
     for collidable in collidables:
-        if collidable.pos.y + (collidable.collision_area_y - collidable.collision_area_height) >= player.pos.y + player.collision_area_y:
+        if collidable.pos.y + collidable.collision_area_y >= player.pos.y + player.collision_area_y:
             collidables_below.append(collidable)
     return collidables_below
 
@@ -41,7 +41,7 @@ def get_collidables_below(collidables, player):
 def get_collidables_above(collidables, player):
     collidables_above = []
     for collidable in collidables:
-        if collidable.pos.y + (collidable.collision_area_y - collidable.collision_area_height) < player.pos.y + player.collision_area_y:
+        if collidable.pos.y + collidable.collision_area_y < player.pos.y + player.collision_area_y:
             collidables_above.append(collidable)
     return collidables_above
 
@@ -84,7 +84,9 @@ def get_scene_data(scene_name):
 
 
 class Scene(object):
-    def __init__(self, scene_name, screen_width, screen_height, screen):
+    def __init__(self, scene_name, screen_width, screen_height, screen, area_entry_point_y, area_entry_point_x):
+        self.area_entry_point_y = area_entry_point_y
+        self.area_entry_point_x = area_entry_point_x
         self.scene_name = scene_name
         self.screen_width = screen_width
         self.screen_height = screen_height
@@ -109,8 +111,7 @@ class Scene(object):
         map_width = len(self.map_layout[0]) * 32
         map_height = len(self.map_layout) * 32
         zoom_scale = 1
-
-        player = Sprite("player", 40, 40)
+        player = Sprite("player", self.area_entry_point_y, self.area_entry_point_x)
 
         teleport_blocks = self.create_teleport_blocks()
 
@@ -143,7 +144,11 @@ class Scene(object):
 
             for teleport in teleport_blocks:
                 if teleport.check_if_collide(player):
-                    return teleport.destination
+                    return {
+                        "destination": teleport.destination,
+                        "area_entry_point_y": teleport.area_entry_point_y,
+                        "area_entry_point_x": teleport.area_entry_point_x
+                    }
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -175,5 +180,6 @@ class Scene(object):
         for teleport in self.scene_data["objects"]["teleport_blocks"]:
             teleport_blocks.append(
                 TeleportBlock(teleport["destination"], teleport["initial_position_x"], teleport["initial_position_y"],
-                              teleport["width"], teleport["height"]))
+                              teleport["width"], teleport["height"], teleport["area_entry_point_y"],
+                              teleport["area_entry_point_x"]))
         return teleport_blocks

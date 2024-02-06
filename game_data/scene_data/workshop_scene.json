@@ -2,12 +2,23 @@
   "sceneData": {
     "name": "workshop_scene",
     "map_name": "workshop_map",
+    "player_initial_position_y": "380",
+    "player_initial_position_x": "280",
     "objects": {
       "structures": [
       ],
       "sprites": [
       ],
       "teleport_blocks": [
+        {
+          "destination": "main_scene",
+          "area_entry_point_y": 380,
+          "area_entry_point_x": 1055,
+          "initial_position_y": 445,
+          "initial_position_x": 288,
+          "width": 32,
+          "height": 32
+        }
       ]
     }
   }

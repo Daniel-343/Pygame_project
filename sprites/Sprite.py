@@ -6,7 +6,7 @@ from game_data import RouteProvider
 
 
 class Sprite(pygame.sprite.Sprite):
-    def __init__(self, name, initial_position_x, initial_position_y):
+    def __init__(self, name, initial_position_y, initial_position_x):
         super().__init__()
         self.data_source = RouteProvider.get_route_by_name(name, "sprite")
         self.sprite_data = self.get_sprite_data()
