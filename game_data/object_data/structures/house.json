@@ -1,7 +1,7 @@
 {
   "structureData": {
     "name": "house",
-    "sheet": "C:\\Users\\danth\\PycharmProjects\\Cookie_Factory\\resources\\houses.png",
+    "sheet": "resources/houses.png",
     "width": 160,
     "height": 256,
     "x_frame": 0,

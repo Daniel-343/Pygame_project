@@ -1,7 +1,6 @@
 import random
 
 import pygame
-import numpy as np
 
 from map.Tile import Tile
 

@@ -1,20 +1,20 @@
 {
   "routeData": {
     "structure": {
-      "stone_arch": "C:\\Users\\danth\\PycharmProjects\\Cookie_Factory\\game_data\\object_data\\structures\\stone_arch.json",
-      "tree": "C:\\Users\\danth\\PycharmProjects\\Cookie_Factory\\game_data\\object_data\\structures\\tree.json",
-      "house": "C:\\Users\\danth\\PycharmProjects\\Cookie_Factory\\game_data\\object_data\\structures\\house.json"
+      "stone_arch": "game_data/object_data/structures/stone_arch.json",
+      "tree": "game_data/object_data/structures/tree.json",
+      "house": "game_data/object_data/structures/house.json"
     },
     "scene": {
-      "main_scene": "C:\\Users\\danth\\PycharmProjects\\Cookie_Factory\\game_data\\scene_data\\main_scene.json",
-      "workshop_scene": "C:\\Users\\danth\\PycharmProjects\\Cookie_Factory\\game_data\\scene_data\\workshop_scene.json"
+      "main_scene": "game_data/scene_data/main_scene.json",
+      "workshop_scene": "game_data/scene_data/workshop_scene.json"
     },
     "map": {
-      "main_map": "C:\\Users\\danth\\PycharmProjects\\Cookie_Factory\\game_data\\map_data\\main_map.json",
-      "workshop_map": "C:\\Users\\danth\\PycharmProjects\\Cookie_Factory\\game_data\\map_data\\workshop_map.json"
+      "main_map": "game_data/map_data/main_map.json",
+      "workshop_map": "game_data/map_data/workshop_map.json"
     },
     "sprite": {
-      "player": "C:\\Users\\danth\\PycharmProjects\\Cookie_Factory\\game_data\\object_data\\sprites\\player.json"
+      "player": "game_data/object_data/sprites/player.json"
     }
   }
 }

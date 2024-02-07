@@ -1,7 +1,7 @@
 {
   "structureData": {
     "name": "stone arch",
-    "sheet": "C:\\Users\\danth\\PycharmProjects\\Cookie_Factory\\resources\\stone_structure_tileset.png",
+    "sheet": "resources/stone_structure_tileset.png",
     "width": 64,
     "height": 64,
     "x_frame": 0,
