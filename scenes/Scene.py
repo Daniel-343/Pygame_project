@@ -10,20 +10,13 @@ from utils import KeyListener, DisplayService
 
 
 class Scene(object):
-    def __init__(self, display_service, scene_name, screen_width, screen_height, screen, area_entry_point_y,
+    def __init__(self, display_service, scene_name, area_entry_point_y,
                  area_entry_point_x):
         self.display_service = display_service
         self.area_entry_point_y = area_entry_point_y
         self.area_entry_point_x = area_entry_point_x
-        self.scene_name = scene_name
-        self.screen_width = screen_width
-        self.screen_height = screen_height
-        self.screen = screen
         self.collidables = []
         self.run = True
-
-        self.screen_half_width = self.screen_width / 2
-        self.screen_half_height = self.screen_height / 2
 
         self.scene_data = SceneService.get_scene_data(scene_name)
 
