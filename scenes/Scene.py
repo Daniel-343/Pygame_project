@@ -10,7 +10,9 @@ from utils import KeyListener, DisplayService
 
 
 class Scene(object):
-    def __init__(self, scene_name, screen_width, screen_height, screen, area_entry_point_y, area_entry_point_x):
+    def __init__(self, display_service, scene_name, screen_width, screen_height, screen, area_entry_point_y,
+                 area_entry_point_x):
+        self.display_service = display_service
         self.area_entry_point_y = area_entry_point_y
         self.area_entry_point_x = area_entry_point_x
         self.scene_name = scene_name
@@ -49,22 +51,14 @@ class Scene(object):
         for drawable in self.tile_map:
             tile_map_surface.blit(drawable.image, drawable.pos)
 
-        internal_surface_size = (2048, 1280)
-        internal_surface = pygame.Surface(internal_surface_size, pygame.SRCALPHA)
-        internal_surface_size_vector = pygame.math.Vector2(internal_surface_size)
-        internal_offset = pygame.math.Vector2(0, 0)
-        internal_offset.x = internal_surface_size[0] / 2 - self.screen_half_width
-        internal_offset.y = internal_surface_size[1] / 2 - self.screen_half_height
-
         while self.run:
             collidables_above = SceneService.get_collidables_above(collidables, player)
             collidables_below = SceneService.get_collidables_below(collidables, player)
             image_frame_surface = DisplayService.create_image_frame(tile_map_surface, collidables_below,
-                                                                  collidables_above, player,
-                                                                  map_width, map_height)
+                                                                    collidables_above, player,
+                                                                    map_width, map_height)
 
-            self.show_screen_surface(image_frame_surface, player, internal_surface,
-                                     internal_offset, internal_surface_size_vector, zoom_scale)
+            self.display_service.show_screen_surface(image_frame_surface, player, zoom_scale)
 
             player.animate(100)
 
@@ -89,16 +83,3 @@ class Scene(object):
             clock.tick(tick_rate)
         pygame.quit()
         sys.exit()
-
-    def show_screen_surface(self, image_frame_surface, player, internal_surface,
-                            internal_offset, internal_surface_size_vector, zoom_scale):
-
-        camera_offset = (pygame.math.Vector2(-player.pos.x + self.screen_half_width - player.pos.width / 2,
-                                             -player.pos.y + self.screen_half_height - player.pos.height / 2)
-                         + internal_offset)
-
-        scaled_surface = pygame.transform.scale(internal_surface, internal_surface_size_vector * zoom_scale)
-        scaled_rect = scaled_surface.get_rect(center=(self.screen_half_width, self.screen_half_height))
-        internal_surface.fill('black')
-        internal_surface.blit(image_frame_surface, camera_offset)
-        self.screen.blit(scaled_surface, scaled_rect)
