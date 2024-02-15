@@ -5,9 +5,8 @@ import pygame
 from game_data import RouteProvider
 from map.MapProvider import MapProvider
 from scenes import SceneService
-from scenes.TeleportBlock import TeleportBlock
 from sprites.Sprite import Sprite
-from utils import KeyListener
+from utils import KeyListener, DisplayService
 
 
 class Scene(object):
@@ -60,7 +59,7 @@ class Scene(object):
         while self.run:
             collidables_above = SceneService.get_collidables_above(collidables, player)
             collidables_below = SceneService.get_collidables_below(collidables, player)
-            image_frame_surface = SceneService.create_image_frame(tile_map_surface, collidables_below,
+            image_frame_surface = DisplayService.create_image_frame(tile_map_surface, collidables_below,
                                                                   collidables_above, player,
                                                                   map_width, map_height)
 
