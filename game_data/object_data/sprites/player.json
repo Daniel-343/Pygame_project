@@ -1,6 +1,6 @@
 {
   "spriteData": {
-    "sheet": "resources/DinoSprites - doux.png",
+    "sheet": "assets/DinoSprites - doux.png",
     "speed": 2,
     "collision_areas": [
       {

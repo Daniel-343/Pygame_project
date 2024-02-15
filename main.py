@@ -17,7 +17,6 @@ class Main:
                               self.area_entry_point_x)
         while current_scene:
             scene_data = current_scene.show_scene()
-            print(scene_data)
             self.area_entry_point_y = scene_data["area_entry_point_y"]
             self.area_entry_point_x = scene_data["area_entry_point_x"]
             current_scene = self.get_scene_by_name(scene_data["destination"])

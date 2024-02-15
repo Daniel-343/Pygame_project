@@ -1,7 +1,7 @@
 {
   "structureData": {
     "name": "tree",
-    "sheet": "resources/plant_tileset.png",
+    "sheet": "assets/plant_tileset.png",
     "width": 116,
     "height": 142,
     "x_frame": 0,

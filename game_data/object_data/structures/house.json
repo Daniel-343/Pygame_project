@@ -1,7 +1,7 @@
 {
   "structureData": {
     "name": "house",
-    "sheet": "resources/houses.png",
+    "sheet": "assets/houses.png",
     "width": 160,
     "height": 256,
     "x_frame": 0,

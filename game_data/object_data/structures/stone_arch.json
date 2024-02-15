@@ -1,7 +1,7 @@
 {
   "structureData": {
     "name": "stone arch",
-    "sheet": "resources/stone_structure_tileset.png",
+    "sheet": "assets/stone_structure_tileset.png",
     "width": 64,
     "height": 64,
     "x_frame": 0,

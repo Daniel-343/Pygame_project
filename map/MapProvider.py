@@ -11,9 +11,9 @@ class MapProvider(object):
         self.map_height = len(map_layout)
         self.tile_size = tile_size
         self.map_layout = map_layout
-        self.grass_sheet = pygame.image.load("./resources/grass_tileset.png").convert_alpha()
-        self.wall_sheet = pygame.image.load("./resources/wall_tileset.png").convert_alpha()
-        self.floor_sheet = pygame.image.load("./resources/floor_and_deoratives.png").convert_alpha()
+        self.grass_sheet = pygame.image.load("./assets/grass_tileset.png").convert_alpha()
+        self.wall_sheet = pygame.image.load("./assets/wall_tileset.png").convert_alpha()
+        self.floor_sheet = pygame.image.load("./assets/floor_and_deoratives.png").convert_alpha()
         self.black_tile = pygame.Surface((32, 32)).convert_alpha()
 
     def generate_map(self):
@@ -39,7 +39,7 @@ class MapProvider(object):
                 image = self.black_tile
                 collision = True
             case _:
-                image = pygame.image.load("./resources/brick_wall_32.png").convert_alpha()
+                image = pygame.image.load("./assets/brick_wall_32.png").convert_alpha()
         return Tile(image, initial_position_x, initial_position_y, collision)
 
     def get_image(self, frame, sheet, width, height, scale, colour, direction):
