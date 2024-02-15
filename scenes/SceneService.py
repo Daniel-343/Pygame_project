@@ -4,6 +4,7 @@ import pygame
 
 from game_data import RouteProvider
 from objects.Structure import Structure
+from scenes.TeleportBlock import TeleportBlock
 from sprites.Sprite import Sprite
 
 
@@ -63,3 +64,13 @@ def get_scene_data(scene_name):
     scene_route = RouteProvider.get_route_by_name(scene_name, "scene")
     with open(scene_route, 'r') as file:
         return json.load(file)["sceneData"]
+
+
+def create_teleport_blocks(scene_data):
+    teleport_blocks = []
+    for teleport in scene_data["objects"]["teleport_blocks"]:
+        teleport_blocks.append(
+            TeleportBlock(teleport["destination"], teleport["initial_position_x"], teleport["initial_position_y"],
+                          teleport["width"], teleport["height"], teleport["area_entry_point_y"],
+                          teleport["area_entry_point_x"]))
+    return teleport_blocks

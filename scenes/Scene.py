@@ -1,11 +1,9 @@
-import json
 import sys
 
 import pygame
 
 from game_data import RouteProvider
 from map.MapProvider import MapProvider
-from objects.Structure import Structure
 from scenes import SceneService
 from scenes.TeleportBlock import TeleportBlock
 from sprites.Sprite import Sprite
@@ -28,7 +26,8 @@ class Scene(object):
 
         self.scene_data = SceneService.get_scene_data(scene_name)
 
-        self.map_layout = SceneService.get_map_layout(RouteProvider.get_route_by_name(self.scene_data["map_name"], "map"))
+        self.map_layout = SceneService.get_map_layout(
+            RouteProvider.get_route_by_name(self.scene_data["map_name"], "map"))
         self.map_provider = MapProvider(32, self.map_layout)
         self.tile_map = self.map_provider.generate_map()
 
@@ -42,7 +41,7 @@ class Scene(object):
         zoom_scale = 1
         player = Sprite("player", self.area_entry_point_y, self.area_entry_point_x)
 
-        teleport_blocks = self.create_teleport_blocks()
+        teleport_blocks = SceneService.create_teleport_blocks(self.scene_data)
 
         collidables = SceneService.get_collidables(self.scene_data)
         collidables.extend(SceneService.get_collidable_tiles(self.tile_map))
@@ -61,8 +60,9 @@ class Scene(object):
         while self.run:
             collidables_above = SceneService.get_collidables_above(collidables, player)
             collidables_below = SceneService.get_collidables_below(collidables, player)
-            image_frame_surface = SceneService.create_image_frame(tile_map_surface, collidables_below, collidables_above, player,
-                                                     map_width, map_height)
+            image_frame_surface = SceneService.create_image_frame(tile_map_surface, collidables_below,
+                                                                  collidables_above, player,
+                                                                  map_width, map_height)
 
             self.show_screen_surface(image_frame_surface, player, internal_surface,
                                      internal_offset, internal_surface_size_vector, zoom_scale)
@@ -103,12 +103,3 @@ class Scene(object):
         internal_surface.fill('black')
         internal_surface.blit(image_frame_surface, camera_offset)
         self.screen.blit(scaled_surface, scaled_rect)
-
-    def create_teleport_blocks(self):
-        teleport_blocks = []
-        for teleport in self.scene_data["objects"]["teleport_blocks"]:
-            teleport_blocks.append(
-                TeleportBlock(teleport["destination"], teleport["initial_position_x"], teleport["initial_position_y"],
-                              teleport["width"], teleport["height"], teleport["area_entry_point_y"],
-                              teleport["area_entry_point_x"]))
-        return teleport_blocks
