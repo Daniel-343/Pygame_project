@@ -2,17 +2,16 @@ import sys
 
 import pygame
 
-from game_data import RouteProvider
 from map.MapProvider import MapProvider
 from scenes import SceneService
 from scenes.Scene import Scene
 from sprites.Sprite import Sprite
-from utils import KeyListener, DisplayService
+from utils import KeyListener, DisplayService, RouteProvider
 
 
 class AreaScene(Scene):
     def __init__(self, display_service, scene_name, area_entry_point_y, area_entry_point_x):
-        super().__init__(display_service, scene_name)
+        super().__init__(display_service)
         self.area_entry_point_y = area_entry_point_y
         self.area_entry_point_x = area_entry_point_x
         self.collidables = []

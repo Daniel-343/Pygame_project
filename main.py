@@ -15,8 +15,9 @@ class Main:
         self.display_service = DisplayService(self.screen, self.SCREEN_WIDTH, self.SCREEN_HEIGHT)
 
     def run(self):
-        current_scene = MainMenuScene(self.display_service,
-                                      self.SCREEN_WIDTH, self.SCREEN_HEIGHT)
+        # current_scene = MainMenuScene(self.display_service,
+        #                               self.SCREEN_WIDTH, self.SCREEN_HEIGHT)
+        current_scene = AreaScene(self.display_service, "main_scene", self.area_entry_point_y, self.area_entry_point_x)
         while current_scene:
             scene_data = current_scene.show_scene()
             self.area_entry_point_y = scene_data["area_entry_point_y"]

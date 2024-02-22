@@ -1,8 +1,6 @@
 import json
 
-import pygame
-
-from game_data import RouteProvider
+from utils import RouteProvider
 from objects.Structure import Structure
 from scenes.TeleportBlock import TeleportBlock
 from sprites.Sprite import Sprite

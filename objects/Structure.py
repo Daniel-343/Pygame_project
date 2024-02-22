@@ -2,7 +2,7 @@ import json
 
 import pygame
 
-from game_data import RouteProvider
+from utils import RouteProvider
 
 
 class Structure:
