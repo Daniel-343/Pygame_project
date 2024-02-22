@@ -1,6 +1,7 @@
 import pygame
 
-from scenes.Scene import Scene
+from scenes.AreaScene import AreaScene
+from scenes.menu.MainMenuScene import MainMenuScene
 from utils.DisplayService import DisplayService
 
 
@@ -14,9 +15,8 @@ class Main:
         self.display_service = DisplayService(self.screen, self.SCREEN_WIDTH, self.SCREEN_HEIGHT)
 
     def run(self):
-        current_scene = Scene(self.display_service, "main_scene",
-                              self.area_entry_point_y,
-                              self.area_entry_point_x)
+        current_scene = MainMenuScene(self.display_service,
+                                      self.SCREEN_WIDTH, self.SCREEN_HEIGHT)
         while current_scene:
             scene_data = current_scene.show_scene()
             self.area_entry_point_y = scene_data["area_entry_point_y"]
@@ -24,8 +24,8 @@ class Main:
             current_scene = self.get_scene_by_name(scene_data["destination"])
 
     def get_scene_by_name(self, name):
-        return Scene(self.display_service, name, self.area_entry_point_y,
-                     self.area_entry_point_x)
+        return AreaScene(self.display_service, name, self.area_entry_point_y,
+                         self.area_entry_point_x)
 
 
 if __name__ == "__main__":

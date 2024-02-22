@@ -25,7 +25,7 @@ class DisplayService:
         self.internal_offset.x = self.internal_surface_size[0] / 2 - self.screen_half_width
         self.internal_offset.y = self.internal_surface_size[1] / 2 - self.screen_half_height
 
-    def show_screen_surface(self, image_frame_surface, player, zoom_scale):
+    def show_scene_surface(self, image_frame_surface, player, zoom_scale):
 
         camera_offset = (pygame.math.Vector2(-player.pos.x + self.screen_half_width - player.pos.width / 2,
                                              -player.pos.y + self.screen_half_height - player.pos.height / 2)
@@ -36,3 +36,8 @@ class DisplayService:
         self.internal_surface.fill('black')
         self.internal_surface.blit(image_frame_surface, camera_offset)
         self.screen.blit(scaled_surface, scaled_rect)
+
+    def show_menu_surface(self, menu_surface):
+        menu_rect = menu_surface.get_rect()
+        self.screen.blit(menu_surface, menu_rect)
+
