@@ -1,5 +1,7 @@
 import json
 
+import pygame
+
 from utils import RouteProvider
 from objects.Structure import Structure
 from scenes.TeleportBlock import TeleportBlock
@@ -35,7 +37,7 @@ def get_collidable_tiles(tile_map):
     return collidables
 
 
-def get_collidables(scene_data):
+def get_collidables(scene_data, tile_map):
     collidables = []
     for collidable in scene_data["objects"]["structures"]:
         collidables.append(
@@ -43,6 +45,7 @@ def get_collidables(scene_data):
     for collidable in scene_data["objects"]["sprites"]:
         collidables.append(
             Sprite(collidable["name"], collidable["initial_position_x"], collidable["initial_position_y"]))
+    collidables.extend(get_collidable_tiles(tile_map))
     return collidables
 
 
@@ -60,3 +63,18 @@ def create_teleport_blocks(scene_data):
                           teleport["width"], teleport["height"], teleport["area_entry_point_y"],
                           teleport["area_entry_point_x"]))
     return teleport_blocks
+
+
+def create_image_frame(tile_map_image, collidables_below, collidables_above, player, surface_width,
+                       surface_height):
+    image_frame = pygame.Surface((surface_width, surface_height))
+    image_frame.blit(tile_map_image, tile_map_image.get_rect())
+    for drawable in collidables_above:
+        image_frame.blit(drawable.image, drawable.pos)
+    image_frame.blit(player.image, player.pos)
+    for drawable in collidables_below:
+        image_frame.blit(drawable.image, drawable.pos)
+
+    return image_frame
+
+

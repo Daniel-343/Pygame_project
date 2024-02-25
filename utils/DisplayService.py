@@ -1,16 +1,9 @@
+import sys
+
 import pygame
 
-
-def create_image_frame(tile_map_image, collidables_below, collidables_above, player, surface_width, surface_height, ):
-    image_frame = pygame.Surface((surface_width, surface_height))
-    image_frame.blit(tile_map_image, tile_map_image.get_rect())
-    for drawable in collidables_above:
-        image_frame.blit(drawable.image, drawable.pos)
-    image_frame.blit(player.image, player.pos)
-    for drawable in collidables_below:
-        image_frame.blit(drawable.image, drawable.pos)
-
-    return image_frame
+from scenes.AreaScene import AreaScene
+from sprites.Sprite import Sprite
 
 
 class DisplayService:
@@ -24,6 +17,39 @@ class DisplayService:
         self.internal_offset = pygame.math.Vector2(0, 0)
         self.internal_offset.x = self.internal_surface_size[0] / 2 - self.screen_half_width
         self.internal_offset.y = self.internal_surface_size[1] / 2 - self.screen_half_height
+
+    def run(self):
+        clock = pygame.time.Clock()
+        tick_rate = 120
+        zoom_scale = 1
+        area_entry_point_y = 300
+        area_entry_point_x = 300
+        player = Sprite("player", area_entry_point_y, area_entry_point_x)
+        current_scene = AreaScene(self, "main_scene", area_entry_point_y, area_entry_point_x, player, zoom_scale)
+        while self.run:
+            current_scene.update()
+            self.show_scene_surface(current_scene.image_frame_surface, player, zoom_scale)
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.run = False
+                if event.type == pygame.MOUSEWHEEL and 1 < zoom_scale + event.y * 0.03 < 1.7:
+                    zoom_scale += event.y * 0.03
+                    current_scene.zoom_scale += event.y * 0.03
+
+            if current_scene.next_area_data:
+                player.pos.y = current_scene.next_area_data['area_entry_point_y']
+                player.pos.x = current_scene.next_area_data['area_entry_point_x']
+                current_scene = self.get_scene_by_name(current_scene.next_area_data['destination'],
+                                                       current_scene.next_area_data['area_entry_point_y'],
+                                                       current_scene.next_area_data['area_entry_point_x'], player,
+                                                       zoom_scale)
+
+            pygame.display.update()
+
+            clock.tick(tick_rate)
+        pygame.quit()
+        sys.exit()
 
     def show_scene_surface(self, image_frame_surface, player, zoom_scale):
 
@@ -41,3 +67,6 @@ class DisplayService:
         menu_rect = menu_surface.get_rect()
         self.screen.blit(menu_surface, menu_rect)
 
+    def get_scene_by_name(self, name, area_entry_point_y, area_entry_point_x, player, zoom_scale):
+        return AreaScene(self, name, area_entry_point_y,
+                         area_entry_point_x, player, zoom_scale)
