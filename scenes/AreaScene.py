@@ -24,7 +24,6 @@ class AreaScene(Scene):
         self.teleport_blocks = SceneService.create_teleport_blocks(self.scene_data)
 
         self.image_frame_surface = None
-        self.next_area_data = None
 
     def update(self):
         collidables_above = SceneService.get_collidables_above(self.collidables, self.player)

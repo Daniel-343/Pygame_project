@@ -16,24 +16,32 @@ class MainMenuScene(Scene):
     def create_menu(self):
         menu_surface = pygame.Surface((self.screen_width, self.screen_height))
         menu_surface.fill('black')
+
+        color = (255, 255, 255)
+
+        color_light = (170, 170, 170)
+        color_dark = (100, 100, 100)
+
+        # defining a font
+        small_font = pygame.font.SysFont('Corbel', 35)
+
+        # rendering a text written in
+        # this font
+        quit_text = small_font.render('quit', True, color)
+        play_text = small_font.render('play', True, color)
+
+        mouse = pygame.mouse.get_pos()
+
+        for ev in pygame.event.get():
+
+            if ev.type == pygame.QUIT:
+                pygame.quit()
+
+            if ev.type == pygame.MOUSEBUTTONDOWN:
+
+
+
         return menu_surface
 
-    def show_scene(self):
-        while self.run:
-            clock = pygame.time.Clock()
-            tick_rate = 120
-            self.display_service.show_menu_surface(self.create_menu())
-            if not self.run:
-                return {
-                    "destination": "main_scene",
-                    "area_entry_point_y": 300,
-                    "area_entry_point_x": 300
-                }
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.run = False
-            pygame.display.update()
-            clock.tick(tick_rate)
-
-        pygame.quit()
-        sys.exit()
+    def update(self):
+        self.display_service.show_menu_surface(self.create_menu())

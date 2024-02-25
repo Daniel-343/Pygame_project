@@ -3,12 +3,15 @@ import sys
 import pygame
 
 from scenes.AreaScene import AreaScene
+from scenes.menu.MainMenuScene import MainMenuScene
 from sprites.Sprite import Sprite
 
 
 class DisplayService:
     def __init__(self, screen, screen_width, screen_height):
         self.screen = screen
+        self.screen_width = screen_width
+        self.screen_height = screen_height
         self.screen_half_width = screen_width / 2
         self.screen_half_height = screen_height / 2
         self.internal_surface_size = (2048, 1280)
@@ -19,20 +22,25 @@ class DisplayService:
         self.internal_offset.y = self.internal_surface_size[1] / 2 - self.screen_half_height
 
     def run(self):
+        run = True
         clock = pygame.time.Clock()
         tick_rate = 120
         zoom_scale = 1
         area_entry_point_y = 300
         area_entry_point_x = 300
         player = Sprite("player", area_entry_point_y, area_entry_point_x)
-        current_scene = AreaScene(self, "main_scene", area_entry_point_y, area_entry_point_x, player, zoom_scale)
-        while self.run:
+        # current_scene = AreaScene(self, "main_scene", area_entry_point_y, area_entry_point_x, player, zoom_scale)
+        current_scene = MainMenuScene(self, self.screen_width, self.screen_height)
+        while run:
             current_scene.update()
-            self.show_scene_surface(current_scene.image_frame_surface, player, zoom_scale)
+            if isinstance(current_scene, MainMenuScene):
+                self.show_menu_surface(current_scene.create_menu())
+            if isinstance(current_scene, AreaScene):
+                self.show_scene_surface(current_scene.image_frame_surface, player, zoom_scale)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    self.run = False
+                    run = False
                 if event.type == pygame.MOUSEWHEEL and 1 < zoom_scale + event.y * 0.03 < 1.7:
                     zoom_scale += event.y * 0.03
                     current_scene.zoom_scale += event.y * 0.03
