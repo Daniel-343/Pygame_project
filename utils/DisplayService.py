@@ -29,15 +29,15 @@ class DisplayService:
         area_entry_point_y = 300
         area_entry_point_x = 300
         player = Sprite("player", area_entry_point_y, area_entry_point_x)
-        # current_scene = AreaScene(self, "main_scene", area_entry_point_y, area_entry_point_x, player, zoom_scale)
-        current_scene = MainMenuScene(self, self.screen_width, self.screen_height)
+        current_scene = AreaScene(self, "main_scene", area_entry_point_y, area_entry_point_x, player, zoom_scale)
+        #current_scene = MainMenuScene(self, self.screen_width, self.screen_height)
         while run:
             current_scene.update()
             if isinstance(current_scene, MainMenuScene):
                 self.show_menu_surface(current_scene.create_menu())
             if isinstance(current_scene, AreaScene):
                 self.show_scene_surface(current_scene.image_frame_surface, player, zoom_scale)
-
+                
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     run = False

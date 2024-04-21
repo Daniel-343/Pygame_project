@@ -38,9 +38,7 @@ class MainMenuScene(Scene):
                 pygame.quit()
 
             if ev.type == pygame.MOUSEBUTTONDOWN:
-
-
-
+                print("yes")
         return menu_surface
 
     def update(self):

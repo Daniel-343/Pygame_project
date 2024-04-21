@@ -1,7 +1,7 @@
 import pygame
 
 
-from scenes.menu.MainMenuScene import MainMenuScene
+#from scenes.menu.MainMenuScene import MainMenuScene
 from utils.DisplayService import DisplayService
 
 
